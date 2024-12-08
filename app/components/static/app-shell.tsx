@@ -5,7 +5,7 @@ export default function AppShell({ children }: PropsWithChildren) {
     <main
       role="main"
       aria-roledescription="app shell"
-      className="animate-in fade-in pointer-events-none z-10 h-dvh w-dvw overflow-y-auto bg-black/90"
+      className="animate-in fade-in pointer-events-none z-10 h-dvh w-dvw overflow-y-auto"
     >
       {children}
     </main>

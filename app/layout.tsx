@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import { Bodoni_Moda } from "next/font/google";
+import { Audiowide } from "next/font/google";
 import { Navbar } from "@/app/components/static/navbar";
-import { cookies, headers } from "next/headers";
 import AppShell from "@/app/components/static/app-shell";
 import { Suspense } from "react";
 import AstrodogSkeleton from "./components/static/astrodog-skeleton";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
+import { ThemeProvider } from "next-themes";
 
-const bodoni = Bodoni_Moda({
+const audio = Audiowide({
   subsets: ["latin"],
-  weight: "variable",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -18,33 +18,35 @@ export const metadata: Metadata = {
   description: "A dog loving business, based in Manchester",
 };
 
-const Astrodog = dynamic(() => import("@/app/components/client/astrodog"));
+const Astrodog = nextDynamic(() => import("@/app/components/client/astrodog"));
 
 export const experimental_ppr = true;
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   chat,
 }: Readonly<{
   children: React.ReactNode;
   chat: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const currentTheme = (cookieStore.get("theme")?.value || "dark") as
-    | "light"
-    | "dark";
-
   return (
-    <html lang="en" className={currentTheme}>
-      <body className={`${bodoni.className} text-primary antialiased`}>
-        <Suspense fallback={<AstrodogSkeleton />}>
-          <Astrodog />
-        </Suspense>
-        <AppShell>
-          <Navbar theme={currentTheme} />
-          {children}
-          {/* {chat} */}
-        </AppShell>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${audio.className} text-primary antialiased`}>
+        <ThemeProvider
+          storageKey="theme"
+          defaultTheme="dark"
+          attribute={"class"}
+          enableSystem
+        >
+          <Suspense fallback={<AstrodogSkeleton />}>
+            <Astrodog />
+          </Suspense>
+          <AppShell>
+            <Navbar />
+            {children}
+            {/* {chat} */}
+          </AppShell>
+        </ThemeProvider>
       </body>
     </html>
   );
