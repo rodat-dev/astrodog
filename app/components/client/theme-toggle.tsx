@@ -10,7 +10,7 @@ export default function ThemeToggle() {
   useEffect(() => setMounted(true));
   if (!mounted) return null;
   return (
-    <div className="grid h-full w-[35px] place-items-center rounded-r-full border-slate-200/40 bg-transparent p-1.5 shadow-lg ring-1 backdrop-blur-md">
+    <div className="not-dark:bg-linear-to-br grid h-full w-[35px] place-items-center rounded-r-full border-slate-200/40 from-blue-600/80 via-blue-300/30 to-pink-500/5 p-1.5 shadow-lg ring-1 backdrop-blur-2xl backdrop-blur-md dark:bg-black/50">
       <AnimatePresence>
         <motion.button
           initial={{ scale: 0, filter: "blur(6px)" }}

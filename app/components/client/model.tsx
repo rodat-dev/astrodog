@@ -4,6 +4,7 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import type { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
 import { lerp } from "three/src/math/MathUtils.js";
+import { motion } from "framer-motion-3d";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -42,14 +43,23 @@ export default function AstrodogModel(props: JSX.IntrinsicElements["group"]) {
     process.env.NEXT_PUBLIC_ASTRODOG_URL as string,
   ) as GLTFResult;
   const { actions } = useAnimations(animations, group);
-  useFrame(({ clock }) => {
+
+  const markAsTransitioned = () => {
+    setFinishedEntry(true);
+  };
+
+  useFrame(({ clock, camera }) => {
     if (group.current && !finishedEntry) {
-      group.current.position.setY(
-        lerp(group.current.position.y, -10, clock.getElapsedTime() * 0.01),
+      camera.position.setY(
+        lerp(
+          camera.position.y,
+          group.current.position.y + 15,
+          clock.getElapsedTime() * 0.01,
+        ),
       );
 
-      if (Math.abs(group.current.position.y + 10) < 0.01) {
-        setFinishedEntry(true);
+      if (Math.abs(camera.position.y - (group.current.position.y + 15)) < 0.2) {
+        markAsTransitioned();
       }
     }
     actions?.floating?.play();

@@ -3,44 +3,49 @@ import { usePathname } from "next/navigation";
 import MobileMenu from "../client/mobile-menu";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   {
     href: "/",
     text: "Home",
     target: "_self",
-    hoverColor: "var(--color-sky-200)",
+    hoverColor: "skyblue",
   },
   {
     href: "/book",
     text: "Book Now",
     target: "_self",
-    hoverColor: "var(--color-teal-300)",
+    hoverColor: "violet",
   },
   {
     href: "/stars",
     text: "Star Dogs ★",
     target: "_self",
-    hoverColor: "var(--color-amber-200)",
+    hoverColor: "gold",
   },
   {
     href: "/faq",
     text: "FAQ",
     target: "_self",
-    hoverColor: "var(--color-indigo-400)",
+    hoverColor: "lightblue",
   },
   {
     href: "https://www.instagram.com/dog_sitting_manchester/",
     text: "Instagram",
     target: "_blank",
-    hoverColor: "var(--color-pink-400)",
+    hoverColor: "pink",
   },
 ];
 
 export default function NavLinks() {
   const p = usePathname();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true));
+  if (!mounted) return null;
+
   return (
-    <ul className="border-1 relative flex h-full w-fit flex-row items-center justify-center rounded-l-full border-slate-200/40 bg-transparent px-3 shadow-lg ring-1 backdrop-blur-md transition-all duration-300">
+    <ul className="border-1 not-dark:bg-linear-to-br relative flex h-full w-fit flex-row items-center justify-center rounded-l-full border-slate-200/80 from-blue-600/20 via-blue-300/10 to-pink-500/5 px-3 shadow-lg ring-1 backdrop-blur-md transition-all duration-300 dark:bg-black/50">
       {NAV_LINKS.map((nl, i) => (
         <li key={`${i}-li`}>
           <Link key={`${i}-link`} href={nl.href} target={nl.target}>
@@ -63,7 +68,7 @@ export default function NavLinks() {
                   },
                 },
               }}
-              className={`text relative block cursor-pointer px-3 py-2 transition-all duration-200 ${p === nl.href ? `underline-offset-3 pointer-events-none scale-110 underline` : ""}`}
+              className={`text relative block cursor-pointer ${nl.href !== "/" && nl.href !== "/book" ? "not-md:hidden" : ""} px-3 py-2 transition-all duration-200 ${p === nl.href ? `underline-offset-3 pointer-events-none scale-110 underline` : ""}`}
             >
               {nl.text}
             </motion.span>
