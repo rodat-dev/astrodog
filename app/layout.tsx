@@ -1,79 +1,50 @@
-import type { Metadata } from "next";
-import "@/app/globals.css";
-import {
-  Anta,
-  Audiowide,
-  Iceland,
-  Orbitron,
-  Reggae_One,
-} from "next/font/google";
-import { Navbar } from "@/app/components/static/navbar";
-import AppShell from "@/app/components/static/app-shell";
-import { Suspense } from "react";
-import AstrodogSkeleton from "./components/static/astrodog-skeleton";
-import nextDynamic from "next/dynamic";
-import { ThemeProvider } from "next-themes";
-
-const reggae = Reggae_One({
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const anta = Anta({
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const iceland = Iceland({
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const audio = Audiowide({
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const o = Orbitron({
-  subsets: ["latin"],
-  weight: "variable",
-});
+import type { Metadata } from 'next'
+import '@/app/globals.css'
+import StarryBackground from '@/app/ui/layout/starry-background'
+import Navbar from '@/app/ui/navigation/navbar'
+import { text } from '@/app/ui/styles/text'
+import ThemeProvider from '@/app/providers/theme'
+import PageTransitionEffect from '@/app/ui/navigation/page-effect'
+import React, { Suspense } from 'react'
+import AstrodogScene from '@/app/ui/3d/astrodog-scene'
+import { cn } from '@/app/lib/utils'
 
 export const metadata: Metadata = {
-  title: "Astrodog",
-  description: "A dog loving business, based in Manchester",
-};
-
-const Astrodog = nextDynamic(() => import("@/app/components/client/astrodog"));
-
-export const experimental_ppr = true;
+    title: 'Astrodog',
+    description: 'The home of Dog Sitting Manchester and more!',
+}
 
 export default function RootLayout({
-  children,
-  chat,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
-  chat: React.ReactNode;
+    children: React.ReactNode
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${reggae.className} font-stretch-extra-condensed font-light text-stone-200 antialiased`}
-      >
-        <ThemeProvider
-          storageKey="theme"
-          defaultTheme="dark"
-          attribute={"class"}
-          enableSystem
-        >
-          <Navbar />
-          {children}
-          {/* {chat} */}
-          <Suspense fallback={<AstrodogSkeleton />}>
-            <Astrodog />
-          </Suspense>
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <body
+                className={cn(
+                    text().base(),
+                    'pointer-events-none m-0 h-dvh w-dvw p-0'
+                )}
+            >
+                <ThemeProvider>
+                    {/* <StarryBackground /> */}
+
+                    <Suspense fallback={null}>
+                        <AstrodogScene />
+                    </Suspense>
+
+                    <section
+                        id="app-shell"
+                        className={
+                            'z-1 absolute left-0 top-0 flex h-dvh w-dvw flex-col'
+                        }
+                    >
+                        <Navbar />
+                        <PageTransitionEffect>{children}</PageTransitionEffect>
+                    </section>
+                </ThemeProvider>
+            </body>
+        </html>
+    )
 }

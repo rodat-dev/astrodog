@@ -1,5 +1,11 @@
-export const dynamic = "force-static";
+import AIAvatarAsLink from './ui/chat/ai-avatar-as-link'
+import * as Portal from '@radix-ui/react-portal'
+import ChatWindow from './ui/chat/chat-window'
 
-export default async function Home() {
-  return <></>;
+export default function Home() {
+    return (
+        // <ChatWindow>
+        <AIAvatarAsLink href="/chat">Chat</AIAvatarAsLink>
+        // </ChatWindow>
+    )
 }

@@ -1,0 +1,19 @@
+@keyframes glitch {
+    0%,
+    100% {
+        clippath: inset(0 0 15% 0);
+        transform: translate(0);
+    }
+    25% {
+        clippath: inset(20% 0 5% 0);
+        transform: translate(-2px, -2px);
+    }
+    50% {
+        clippath: inset(50% 0 40% 0);
+        transform: translate(2px, 2px);
+    }
+    75% {
+        clippath: inset(40% 0 10% 0);
+        transform: translate(-1px, 1px);
+    }
+}
