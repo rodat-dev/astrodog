@@ -131,7 +131,7 @@ export default function BookingForm() {
 
       <Card
         ref={cardRef}
-        className={`pointer-events-auto mx-auto touch-auto border-none md:w-[60%] ${cardStyles.glassy}`}
+        className={`z-1 pointer-events-auto mx-auto h-fit w-full border-none md:w-[60%] ${cardStyles.glassy}`}
       >
         <form action={action} className="flex flex-col gap-8 p-8">
           <TitleWithGradient>Booking Form</TitleWithGradient>

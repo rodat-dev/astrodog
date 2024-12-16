@@ -20,8 +20,11 @@ export function Navbar(props: NavigationMenuProps) {
   if (!mounted) return null;
 
   return (
-    <NavigationMenu {...props}>
-      <NavigationMenuList className="relative flex h-fit w-dvw flex-1 flex-row items-center justify-start p-1 md:gap-2 md:p-2 md:text-xl">
+    <NavigationMenu
+      className="pointer-events-auto sticky left-0 top-0 flex h-[80px] w-full !max-w-full items-center justify-start p-2 backdrop-blur-lg"
+      {...props}
+    >
+      <NavigationMenuList className="flex flex-1 flex-row items-center justify-start p-1 md:gap-2 md:p-2 md:text-xl">
         <NavigationMenuItem>
           <Link href={"/"} legacyBehavior passHref>
             <NavigationMenuLink

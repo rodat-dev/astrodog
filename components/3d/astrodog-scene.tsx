@@ -72,8 +72,10 @@ export default function AstrodogScene() {
       }}
       inert={!isHome}
       className={cn(
-        "fixed left-0 top-0 h-full w-full bg-transparent",
-        isHome ? "z-1 touch-none" : "pointer-events-none z-0",
+        "z-1 pointer-events-auto h-full w-full overflow-hidden bg-transparent",
+        isHome
+          ? "z-1 pointer-events-auto cursor-pointer touch-none"
+          : "pointer-events-none",
       )}
     >
       <Suspense fallback={null}>

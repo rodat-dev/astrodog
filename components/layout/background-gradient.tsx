@@ -17,11 +17,10 @@ const COLORS = [
   "hsl(252, 77%, 25%)", // darker vivid purple
 ];
 
-export default function Container({
-  children,
+export default function BackgroundGradient({
   className,
   ...props
-}: { children: React.ReactNode } & HTMLMotionProps<"div">) {
+}: HTMLMotionProps<"div">) {
   const color = useMotionValue(COLORS[0]);
   const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, rgb(5 8 14) 30%, ${color})`;
 
@@ -42,13 +41,11 @@ export default function Container({
         backgroundImage,
       }}
       className={cn(
-        "pointer-events-none relative m-0 flex h-full w-full touch-none flex-col",
+        "pointer-events-none absolute inset-0 isolate z-[-1] m-0 flex h-full w-full touch-none flex-col contain-layout",
         className,
       )}
       aria-hidden={true}
       {...props}
-    >
-      {children}
-    </motion.div>
+    />
   );
 }

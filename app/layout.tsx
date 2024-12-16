@@ -5,11 +5,11 @@ import { ThemeProvider } from "./providers/theme";
 import Main from "@/components/layout/page-transition";
 import { Navbar } from "@/components/layout/navbar";
 import { Gugi } from "next/font/google";
-import Container from "@/components/layout/container";
 import ChatButton from "@/components/ui/chat-button";
 import { Suspense } from "react";
 import AstrodogScene from "@/components/3d/astrodog-scene";
 import { AstrodogToaster } from "@/components/ui/astrodog-toaster";
+import BackgroundGradient from "@/components/layout/background-gradient";
 
 const gugi = Gugi({
   subsets: ["latin"],
@@ -28,24 +28,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`h-dvh w-dvw antialiased ${gugi.className}`}>
+      <body className={`relative antialiased ${gugi.className}`}>
         <ThemeProvider
           attribute={"class"}
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Container>
-            <Navbar className="pointer-events-auto sticky left-0 top-0 flex h-[80px] touch-auto items-center justify-start backdrop-blur-lg" />
-            <section className="pointer-events-none absolute inset-0 z-0">
-              <Suspense fallback={null}>
-                <AstrodogScene />
-              </Suspense>
-            </section>
+          <BackgroundGradient />
+          <section className="pointer-events-auto absolute left-0 top-0 flex h-full w-dvw">
+            <Suspense fallback={null}>
+              <AstrodogScene />
+            </Suspense>
+          </section>
+          <div className="pointer-events-none relative z-10 grid h-dvh w-dvw grid-rows-[80px_1fr]">
+            <Navbar />
             <Main>{children}</Main>
-            <AstrodogToaster />
+          </div>
+          <div className="relative z-20">
             <ChatButton />
-          </Container>
+            <AstrodogToaster />
+          </div>
         </ThemeProvider>
       </body>
     </html>
