@@ -1,12 +1,13 @@
 "use server";
 import { BookingFormSchema } from "@/lib/schema";
 import { createClient } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabase = createClient(supabaseUrl!, supabaseKey!);
 
-export async function createBooking(prevState: any, formData: FormData) {
+export async function createBooking(_prevState: any, formData: FormData) {
   const validatedFields = BookingFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -34,7 +35,7 @@ export async function createBooking(prevState: any, formData: FormData) {
   }
 
   try {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("bookingforms")
       .insert(validatedFields.data)
       .select();
@@ -42,6 +43,8 @@ export async function createBooking(prevState: any, formData: FormData) {
     if (error) {
       throw new Error(error.message);
     }
+
+    revalidatePath("/");
 
     return {
       errors: [],

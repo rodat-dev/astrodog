@@ -112,7 +112,7 @@ export default function BookingForm() {
     if (state.success && confettiRef.current) {
       setTimeout(() => {
         confettiRef.current?.remove();
-      }, 5000);
+      }, 10000);
     }
   }, [state.message, state.success, toast]);
 
