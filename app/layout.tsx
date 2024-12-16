@@ -37,16 +37,15 @@ export default function RootLayout({
         >
           <Container>
             <Navbar className="sticky left-0 top-0 flex h-[80px] items-center justify-start backdrop-blur-lg" />
-
             <section className="pointer-events-none absolute inset-0 z-0">
               <Suspense fallback={null}>
                 <AstrodogScene />
               </Suspense>
             </section>
             <Main>{children}</Main>
+            <AstrodogToaster />
+            <ChatButton />
           </Container>
-          <AstrodogToaster />
-          <ChatButton />
         </ThemeProvider>
       </body>
     </html>
