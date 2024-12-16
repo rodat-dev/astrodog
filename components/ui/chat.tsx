@@ -26,7 +26,7 @@ export function AstrodogChat() {
   return (
     <div className="flex h-full w-full items-center justify-center p-4">
       <Card
-        className={`pointer-events-auto z-10 w-full ${cardStyles.glassy} transition-all duration-500 md:w-[60dvw] ${messages.length > 0 ? "h-full" : "h-fit"}`}
+        className={`pointer-events-auto z-10 w-full touch-auto ${cardStyles.glassy} transition-all duration-500 md:w-[60dvw] ${messages.length > 0 ? "h-full" : "h-fit"}`}
       >
         <div
           className={`flex flex-col gap-8 p-8 ${messages.length > 0 ? "h-full" : ""}`}

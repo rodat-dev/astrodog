@@ -89,7 +89,7 @@ export default function BookingForm() {
   });
 
   const confettiRef = useRef<HTMLCanvasElement>(null);
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
   const stayTypes = ["daycare", "overnight"];
   const temperaments = ["shy", "friendly", "nervous", "anxious"];
   const cardRef = useRef<HTMLDivElement>(null);
@@ -131,7 +131,7 @@ export default function BookingForm() {
 
       <Card
         ref={cardRef}
-        className={`pointer-events-auto mx-auto border-none md:w-[60%] ${cardStyles.glassy}`}
+        className={`pointer-events-auto mx-auto touch-auto border-none md:w-[60%] ${cardStyles.glassy}`}
       >
         <form action={action} className="flex flex-col gap-8 p-8">
           <TitleWithGradient>Booking Form</TitleWithGradient>
