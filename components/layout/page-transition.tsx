@@ -19,7 +19,7 @@ function FrozenRouter(props: { children: React.ReactNode }) {
   );
 }
 
-const PageTransition = ({ children }: { children: React.ReactNode }) => {
+export default function Main({ children }: { children: React.ReactNode }) {
   const key = usePathname();
 
   const variants = {
@@ -39,7 +39,8 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AnimatePresence presenceAffectsLayout mode="wait" initial={false}>
-      <motion.div
+      <motion.main
+        role="main"
         key={key}
         variants={variants}
         initial="start"
@@ -55,9 +56,7 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
         }
       >
         <FrozenRouter>{children}</FrozenRouter>
-      </motion.div>
+      </motion.main>
     </AnimatePresence>
   );
-};
-
-export default PageTransition;
+}

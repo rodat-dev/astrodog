@@ -1,56 +1,15 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
+import "open-props/style";
 import { ThemeProvider } from "./providers/theme";
-import PageTransitionEffect from "@/components/layout/page-transition";
+import Main from "@/components/layout/page-transition";
 import { Navbar } from "@/components/layout/navbar";
-import {
-  Amarante,
-  Baskervville_SC,
-  Baumans,
-  DM_Sans,
-  Dosis,
-  Gugi,
-  Play,
-  Rubik,
-  Rubik_Mono_One,
-} from "next/font/google";
+import { Gugi } from "next/font/google";
 import Container from "@/components/layout/container";
 import ChatButton from "@/components/ui/chat-button";
 import { Suspense } from "react";
 import AstrodogScene from "@/components/3d/astrodog-scene";
-import "open-props/style";
 import { AstrodogToaster } from "@/components/ui/astrodog-toaster";
-import PageTransition from "@/components/layout/page-transition";
-
-const rubik = Rubik({
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const monoone = Rubik_Mono_One({
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const dosis = Dosis({
-  subsets: ["latin"],
-  weight: "variable",
-});
-
-const baskerville = Baskervville_SC({
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: "variable",
-});
-
-const baumans = Baumans({
-  subsets: ["latin"],
-  weight: "400",
-});
 
 const gugi = Gugi({
   subsets: ["latin"],
@@ -84,7 +43,7 @@ export default function RootLayout({
                 <AstrodogScene />
               </Suspense>
             </section>
-            <PageTransition>{children}</PageTransition>
+            <Main>{children}</Main>
           </Container>
           <AstrodogToaster />
           <ChatButton />
