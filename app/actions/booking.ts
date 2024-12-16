@@ -1,7 +1,6 @@
 "use server";
 import { BookingFormSchema } from "@/lib/schema";
 import { createClient } from "@supabase/supabase-js";
-import { revalidatePath } from "next/cache";
 
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabaseUrl = process.env.SUPABASE_URL;
