@@ -35,9 +35,14 @@ export function Navbar(props: NavigationMenuProps) {
         </NavigationMenuItem>
 
         <NavigationMenuItem
-          className={`motion-preset-blur-down-lg motion-loop-once relative flex h-fit w-fit`}
+          className={`motion-preset-blur-down-lg motion-loop-once relative flex h-fit w-fit transition-all duration-300 will-change-contents hover:scale-105`}
         >
-          <Link className="text-lg" href={"/booking"} legacyBehavior passHref>
+          <Link
+            className="text-lg text-foreground"
+            href={"/booking"}
+            legacyBehavior
+            passHref
+          >
             Book Now
           </Link>
         </NavigationMenuItem>
