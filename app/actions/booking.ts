@@ -25,7 +25,6 @@ export async function createBooking(_prevState: any, formData: FormData) {
   });
 
   if (!validatedFields.success) {
-    console.log(JSON.stringify(validatedFields.error.flatten().fieldErrors));
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: `Please check the form for errors: ${JSON.stringify(validatedFields.error.flatten().fieldErrors)}`,
@@ -43,8 +42,6 @@ export async function createBooking(_prevState: any, formData: FormData) {
     if (error) {
       throw new Error(error.message);
     }
-
-    revalidatePath("/");
 
     return {
       errors: [],
