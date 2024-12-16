@@ -1,8 +1,9 @@
+/// note for posteriority: If an element is marked as absolutely positioned, scrolling does not work on mobile.
 "use client";
-import { motion, AnimatePresence, Variants } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 function FrozenRouter(props: { children: React.ReactNode }) {
   const context = useContext(LayoutRouterContext ?? {});
@@ -21,6 +22,15 @@ function FrozenRouter(props: { children: React.ReactNode }) {
 
 export default function Main({ children }: { children: React.ReactNode }) {
   const key = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   const variants = {
     start: {
@@ -39,8 +49,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
 
   return (
     <AnimatePresence presenceAffectsLayout mode="wait" initial={false}>
-      <motion.main
-        role="main"
+      <motion.div
         key={key}
         variants={variants}
         initial="start"
@@ -51,12 +60,9 @@ export default function Main({ children }: { children: React.ReactNode }) {
           staggerChildren: 0.15,
           duration: 0.4,
         }}
-        className={
-          "left-0 top-0 flex h-full w-full flex-col overflow-y-auto overflow-x-hidden p-6"
-        }
       >
         <FrozenRouter>{children}</FrozenRouter>
-      </motion.main>
+      </motion.div>
     </AnimatePresence>
   );
 }

@@ -11,20 +11,12 @@ import { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import Image from "next/image";
 
 export function Navbar(props: NavigationMenuProps) {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <NavigationMenu
-      className="pointer-events-auto sticky left-0 top-0 flex h-[80px] w-full !max-w-full items-center justify-start p-2 backdrop-blur-lg"
+      className="motion-preset-blur-down-lg motion-loop-once motion-duration-300 pointer-events-auto sticky left-0 top-0 flex h-[80px] w-full !max-w-full items-center justify-start p-2 backdrop-blur-lg"
       {...props}
     >
-      <NavigationMenuList className="flex flex-1 flex-row items-center justify-start p-1 md:gap-2 md:p-2 md:text-xl">
+      <NavigationMenuList className="flex h-fit w-full flex-1 flex-row items-center justify-start p-1 md:gap-2 md:p-2 md:text-xl">
         <NavigationMenuItem>
           <Link href={"/"} legacyBehavior passHref>
             <NavigationMenuLink

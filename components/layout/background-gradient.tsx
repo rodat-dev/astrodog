@@ -41,7 +41,7 @@ export default function BackgroundGradient({
         backgroundImage,
       }}
       className={cn(
-        "pointer-events-none absolute inset-0 isolate z-[-1] m-0 flex h-full w-full touch-none flex-col contain-layout",
+        "pointer-events-none fixed inset-0 z-[-1] m-0 flex h-full w-full touch-none overflow-hidden bg-fixed bg-no-repeat",
         className,
       )}
       aria-hidden={true}

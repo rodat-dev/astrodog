@@ -28,27 +28,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`relative antialiased ${gugi.className}`}>
+      <body className={`antialiased ${gugi.className}`}>
         <ThemeProvider
           attribute={"class"}
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <BackgroundGradient />
-          <section className="pointer-events-auto absolute left-0 top-0 flex h-full w-dvw">
+          <section className="absolute left-0 top-0 flex h-full w-full overflow-hidden">
             <Suspense fallback={null}>
               <AstrodogScene />
             </Suspense>
+            <BackgroundGradient />
           </section>
-          <div className="pointer-events-none relative z-10 grid h-dvh w-dvw grid-rows-[80px_1fr]">
+          <div className="pointer-events-none z-10 grid h-full w-full grid-rows-[80px_1fr]">
             <Navbar />
             <Main>{children}</Main>
           </div>
-          <div className="relative z-20">
-            <ChatButton />
-            <AstrodogToaster />
-          </div>
+          <ChatButton />
+          <AstrodogToaster />
         </ThemeProvider>
       </body>
     </html>

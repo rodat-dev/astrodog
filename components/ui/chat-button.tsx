@@ -7,7 +7,7 @@ export default function ChatButton() {
     <Link
       href="/chat"
       className={clickerClass({
-        className: "absolute bottom-4 right-4 h-fit w-fit",
+        className: "fixed bottom-4 right-4 h-fit w-fit",
       })}
       aria-label="Chat with AI"
     >

@@ -71,6 +71,6 @@
     @apply border-border;
   }
   body {
-    @apply h-dvh w-dvw overflow-hidden text-foreground;
+    @apply h-dvh w-dvw text-foreground;
   }
 }

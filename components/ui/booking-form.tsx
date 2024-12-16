@@ -95,7 +95,7 @@ export default function BookingForm() {
   const cardRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   useEffect(() => {
-    if (state.message) {
+    if (state.message.length > 0) {
       toast({
         variant: state.variant as "destructive" | "default",
         title: state.success ? "*Woofs of Joy*!" : "*Sad Woof*",
@@ -124,16 +124,19 @@ export default function BookingForm() {
             ref={confettiRef}
             width={width}
             height={2000}
-            className="pointer-events-none"
+            className="pointer-events-none touch-none"
           />,
           document.body,
         )}
 
       <Card
         ref={cardRef}
-        className={`z-1 pointer-events-auto mx-auto h-fit w-full border-none md:w-[60%] ${cardStyles.glassy}`}
+        className={`mx-auto flex h-fit w-full flex-col border-none md:w-[60%] ${cardStyles.glassy}`}
       >
-        <form action={action} className="flex flex-col gap-8 p-8">
+        <form
+          action={action}
+          className="pointer-events-auto flex flex-1 flex-col gap-8 p-8"
+        >
           <TitleWithGradient>Booking Form</TitleWithGradient>
           <div className="space-y-4">
             <h2 className="text-xl font-semibold text-violet-300 md:text-center">
