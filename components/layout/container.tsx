@@ -41,7 +41,11 @@ export default function Container({
       style={{
         backgroundImage,
       }}
-      className={cn("relative m-0 flex h-full w-full flex-col", className)}
+      className={cn(
+        "pointer-events-none relative m-0 flex h-full w-full touch-none flex-col",
+        className,
+      )}
+      aria-hidden={true}
       {...props}
     >
       {children}

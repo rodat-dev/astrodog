@@ -52,7 +52,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
           duration: 0.4,
         }}
         className={
-          "pointer-events-none z-10 flex h-full w-full flex-col overflow-y-auto overflow-x-hidden p-6"
+          "z-10 flex h-full w-full flex-col overflow-y-auto overflow-x-hidden p-6"
         }
       >
         <FrozenRouter>{children}</FrozenRouter>
