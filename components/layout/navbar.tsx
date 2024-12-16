@@ -8,26 +8,10 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
-import { usePathname } from "next/navigation";
-import { HomeIcon, Rocket, SpaceIcon } from "lucide-react";
-
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Dog Sitting Manchester",
-    href: "/",
-    description: "Homepage of Dogsitting Manchester",
-  },
-  {
-    title: "Book Now",
-    href: "/booking",
-    description: "Fill in an enquiry form to book a dog sitting service",
-  },
-];
+import Image from "next/image";
 
 export function Navbar(props: NavigationMenuProps) {
   const [mounted, setMounted] = React.useState(false);
-  const id = React.useId();
-  const pathname = usePathname();
 
   React.useEffect(() => {
     setMounted(true);
@@ -37,36 +21,34 @@ export function Navbar(props: NavigationMenuProps) {
 
   return (
     <NavigationMenu {...props}>
-      <NavigationMenuList className="relative flex h-fit w-full flex-1 flex-row justify-center gap-4 rounded-lg p-2 md:gap-8 md:p-4 md:text-xl">
+      <NavigationMenuList className="relative flex h-fit w-dvw flex-1 flex-row items-center justify-start p-1 md:gap-2 md:p-2 md:text-xl">
         <NavigationMenuItem>
-          <Link href={"/"} prefetch legacyBehavior passHref>
+          <Link href={"/"} legacyBehavior passHref>
             <NavigationMenuLink
-              active={"/" === pathname}
-              className={`motion-preset-blur-down-lg motion-loop-once relative flex h-fit w-fit flex-col gap-4`}
+              className={`motion-preset-blur-down-lg motion-loop-once relative flex h-fit w-fit`}
             >
-              <span
-                data-active={"/" === pathname}
-                className="peer relative flex gap-1 rounded-lg p-2 transition-all duration-500 hover:[box-shadow:inset_0_0_8px_var(--violet-8)] data-[active=true]:[box-shadow:inset_0_0_8px_var(--violet-8)]"
-              >
-                <HomeIcon /> Home
-              </span>
+              <Image
+                src={"/nasa-dog.svg"}
+                aria-label="link to homepage"
+                alt="Dogsitting Manchester Logo"
+                width={80}
+                height={80}
+                className="peer relative flex scale-75 gap-1 rounded-lg p-1 transition-all duration-500 hover:[filter:drop-shadow(0_0_4px_var(--violet-8))] md:scale-100 md:p-2"
+              />
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href={"/booking"} prefetch legacyBehavior passHref>
-            <NavigationMenuLink
-              active={"/booking" === pathname}
-              className={`motion-preset-blur-down-lg motion-loop-once relative flex h-fit w-fit flex-col gap-2`}
-            >
-              <span
-                data-active={"/booking" === pathname}
-                className="peer relative flex gap-1 rounded-lg p-2 transition-all duration-500 hover:[box-shadow:inset_0_0_8px_var(--violet-8)] data-[active=true]:[box-shadow:inset_0_0_8px_var(--violet-8)]"
-              >
-                <Rocket />
-                Book Now
-              </span>
-            </NavigationMenuLink>
+
+        <NavigationMenuItem
+          className={`motion-preset-blur-down-lg motion-loop-once relative flex h-fit w-fit`}
+        >
+          <Link
+            className="text-lg font-bold text-violet-400"
+            href={"/booking"}
+            legacyBehavior
+            passHref
+          >
+            Book Now
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>

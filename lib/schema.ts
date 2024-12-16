@@ -3,10 +3,7 @@ import { z } from "zod";
 export const BookingFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email().min(1, { message: "Email is required" }),
-  phoneNumber: z
-    .string()
-    .regex(/^(\+44(0)?|0)\d{10}$/, { message: "Invalid UK phone number" })
-    .optional(),
+  phoneNumber: z.string().optional(),
   stayType: z.array(z.enum(["daycare", "overnight"])),
   dogName: z.string().min(1, { message: "Dog name is required" }),
   breed: z.string().min(1, { message: "Breed is required" }),

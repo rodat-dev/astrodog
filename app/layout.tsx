@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import { ThemeProvider } from "./providers/theme";
+import PageTransitionEffect from "@/components/layout/page-transition";
 import { Navbar } from "@/components/layout/navbar";
 import {
   Amarante,
@@ -19,6 +20,7 @@ import { Suspense } from "react";
 import AstrodogScene from "@/components/3d/astrodog-scene";
 import "open-props/style";
 import { AstrodogToaster } from "@/components/ui/astrodog-toaster";
+import PageTransition from "@/components/layout/page-transition";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -75,16 +77,14 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Container>
-            <Navbar className="sticky left-0 top-0 flex h-fit w-full !max-w-full items-center justify-center p-2 backdrop-blur-lg" />
+            <Navbar className="sticky left-0 top-0 flex h-[80px] items-center justify-start backdrop-blur-lg" />
 
             <section className="pointer-events-none absolute inset-0 z-0">
               <Suspense fallback={null}>
                 <AstrodogScene />
               </Suspense>
             </section>
-            <section className="pointer-events-none z-10 flex h-full w-full flex-col overflow-y-auto">
-              {children}
-            </section>
+            <PageTransition>{children}</PageTransition>
           </Container>
           <AstrodogToaster />
           <ChatButton />

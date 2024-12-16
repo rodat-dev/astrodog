@@ -2,10 +2,15 @@
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { TitleWithGradient } from "@/components/ui/title";
-import { GlowingButton } from "@/components/ui/glowing-button";
-import { Rocket } from "lucide-react";
+import { Loader2, Rocket } from "lucide-react";
 import { useChat } from "ai/react";
 import { useEffect, useRef } from "react";
+import { Button } from "./button";
+import { clickerClass } from "@/components/styles/clicker";
+import { cn } from "@/lib/utils";
+import { animations } from "@/components/styles/animations";
+import { cardStyles } from "@/components/styles/cards";
+import { motion, AnimatePresence } from "motion/react";
 
 export function AstrodogChat() {
   const ref = useRef<HTMLDivElement>(null);
@@ -21,7 +26,7 @@ export function AstrodogChat() {
   return (
     <div className="flex h-full w-full items-center justify-center p-4">
       <Card
-        className={`pointer-events-auto z-10 w-full border-none bg-black/10 p-4 backdrop-blur-lg transition-all duration-500 [box-shadow:inset_0_0_10px_rgba(255,255,255,0.1)] md:w-[60dvw] ${messages.length > 0 ? "h-full" : "h-fit"}`}
+        className={`pointer-events-auto z-10 w-full ${cardStyles.glassy} transition-all duration-500 md:w-[60dvw] ${messages.length > 0 ? "h-full" : "h-fit"}`}
       >
         <div
           className={`flex flex-col gap-8 p-8 ${messages.length > 0 ? "h-full" : ""}`}
@@ -30,44 +35,71 @@ export function AstrodogChat() {
 
           <div className="flex-1 space-y-4 overflow-y-auto">
             {messages.map((message, index) => (
-              <div
-                ref={index === messages.length - 1 ? ref : null}
-                key={index}
-                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+              <AnimatePresence
+                presenceAffectsLayout
+                key={`${index}-presence`}
+                mode="wait"
               >
-                <div
-                  className={`max-w-[80%] rounded-lg p-3 ${
-                    message.role === "user"
-                      ? "bg-purple-500/20 text-purple-100"
-                      : "bg-blue-500/20 text-blue-100"
-                  }`}
+                <motion.div
+                  initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  ref={index === messages.length - 1 ? ref : null}
+                  key={`${index}-${message.role}`}
+                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  {message.content}
-                </div>
-              </div>
+                  <div
+                    className={`max-w-[80%] rounded-lg p-3 backdrop-blur-lg [box-shadow:inset_0_0_6px_1px_var(--violet-8)] ${
+                      message.role === "user"
+                        ? "bg-violet-500/10 text-violet-200"
+                        : "bg-blue-500/10 text-blue-200"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             ))}
+            {messages.length > 0 && !isLoading && <div ref={ref} />}
           </div>
-
           <form
             onSubmit={handleSubmit}
-            className={`mx-auto flex w-full border-collapse flex-col items-center gap-2 md:max-w-[42ch] md:flex-row md:gap-0 ${messages.length > 0 ? "mt-auto" : ""}`}
+            className={`relative mx-auto flex h-fit w-full border-collapse flex-col items-center gap-2 md:max-w-[42ch] md:flex-row md:gap-0 ${messages.length > 0 ? "mt-auto" : ""}`}
           >
+            <AnimatePresence mode="wait">
+              {isLoading && (
+                <motion.div
+                  className={`absolute -top-16 left-0 w-full rounded-b-none rounded-t-lg p-2 ${cardStyles.glassy}`}
+                  initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                >
+                  Thinking... <Loader2 className="h-4 w-4 animate-spin" />
+                </motion.div>
+              )}
+            </AnimatePresence>
             <Input
               value={input}
+              readOnly={isLoading}
               onChange={handleInputChange}
               placeholder="Ask Astrodog a question..."
-              className="peer w-full rounded-r-none border-none bg-black/50 p-3 transition-all duration-300 [box-shadow:inset_0_0_10px_var(--violet-8)] focus:scale-105 focus:outline-none focus:ring-0"
+              className={cn(
+                "peer w-full rounded-r-none border-none bg-black/50 p-3 transition-all duration-300 [box-shadow:inset_0_0_4px_var(--violet-8),0_0_4px_1px_var(--violet-8)] focus:scale-105 focus:outline-none focus:ring-0",
+                animations.entry,
+              )}
             />
-            <GlowingButton
+            <Button
               type="submit"
-              isPending={isLoading}
-              fromColor="#c084fc"
-              toColor="#3b82f6"
-              viaColor="#6d28d9"
-              className="w-full p-2 px-4 hover:scale-105 peer-focus:scale-105 md:w-fit md:rounded-l-none"
+              disabled={isLoading}
+              className={clickerClass({
+                className:
+                  "w-full rounded-lg p-2 px-4 hover:scale-105 peer-focus:scale-105 md:w-fit md:rounded-l-none",
+              })}
             >
-              <Rocket className="h-6 w-6" />
-            </GlowingButton>
+              Send <Rocket className="h-6 w-6" />
+            </Button>
           </form>
         </div>
       </Card>

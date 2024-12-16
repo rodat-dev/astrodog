@@ -5,9 +5,15 @@
 @variant dark (&:where(.dark, .dark *));
 
 @layer base {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   :root {
     --background: 0 0% 100%;
-    --foreground: 270 100% 82%;
+    --foreground: 270 50% 82%;
     --card: 0 0% 100%;
     --card-foreground: 270 100% 82%;
     --popover: 0 0% 100%;
