@@ -4,7 +4,7 @@ import { animations } from "@/components/styles/animations";
 export const clicker = {
   entry: animations.entry,
   pointer: "pointer-events-auto z-10 cursor-pointer",
-  style: "bg-black/40 p-4 text-violet-400 backdrop-blur-xl",
+  style: "bg-black/40 p-4 text-foreground backdrop-blur-xl",
   hover:
     "transition-all [box-shadow:inset_0_0_8px_var(--violet-8),0_0_8px_2px_var(--violet-8)] hover:[box-shadow:inset_0_0_7px_var(--violet-8),0_0_10px_4px_var(--violet-8)]",
   active:

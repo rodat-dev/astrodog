@@ -52,7 +52,7 @@ export function AstrodogChat() {
                   <div
                     className={`max-w-[80%] rounded-lg p-3 backdrop-blur-lg [box-shadow:inset_0_0_6px_1px_var(--violet-8)] ${
                       message.role === "user"
-                        ? "bg-violet-500/10 text-violet-200"
+                        ? "bg-violet-500/10 text-foreground"
                         : "bg-blue-500/10 text-blue-200"
                     }`}
                   >

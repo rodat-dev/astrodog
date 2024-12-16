@@ -21,7 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { Button } from "./button";
 import { clickerClass } from "../styles/clicker";
-import { CheckIcon, CrossIcon } from "lucide-react";
+import { CheckIcon, Cross, CrossIcon, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { cardStyles } from "../styles/cards";
 import { createPortal } from "react-dom";
@@ -47,6 +47,7 @@ function InputFieldWithLabel({
         <Textarea
           id={id}
           name={name}
+          rows={1}
           placeholder=" "
           {...props}
           className={cn(
@@ -68,13 +69,16 @@ function InputFieldWithLabel({
         />
       )}
       <Label
-        className="absolute bottom-0 left-5 -translate-y-full text-foreground/50 opacity-0 peer-placeholder-shown:opacity-100 peer-focus-visible:opacity-0"
+        className={cn(
+          `absolute bottom-0 left-5 -translate-y-full text-foreground/50 opacity-0 peer-placeholder-shown:opacity-100 peer-[&:not(:placeholder-shown)]:opacity-0`,
+          isTextArea && "bottom-6",
+        )}
         htmlFor={id}
       >
         {label}
       </Label>
       <CheckIcon className="absolute bottom-0 right-2 h-4 w-4 -translate-y-full text-green-300 peer-placeholder-shown:hidden peer-valid:visible peer-invalid:hidden peer-valid:peer-focus:hidden md:right-5" />
-      <CrossIcon className="absolute bottom-0 right-2 h-4 w-4 -translate-y-full text-red-400 peer-placeholder-shown:hidden peer-valid:hidden peer-invalid:visible peer-invalid:peer-focus:hidden md:right-5" />
+      <XIcon className="absolute bottom-0 right-2 h-4 w-4 -translate-y-full text-red-400 peer-placeholder-shown:hidden peer-valid:hidden peer-invalid:visible peer-invalid:peer-focus:hidden md:right-5" />
       {children}
     </div>
   );
@@ -139,8 +143,8 @@ export default function BookingForm() {
         >
           <TitleWithGradient>Booking Form</TitleWithGradient>
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-violet-300 md:text-center">
-              Dog parent
+            <h2 className="text-xl font-semibold md:text-center">
+              Your Details
             </h2>
             <div className="grid gap-8">
               <InputFieldWithLabel
@@ -183,9 +187,7 @@ export default function BookingForm() {
 
           {/* Dog Information */}
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-violet-300 md:text-center">
-              Your Dog
-            </h2>
+            <h2 className="text-xl font-semibold md:text-center">Your Dog</h2>
             <div className="grid gap-8">
               <InputFieldWithLabel
                 label="Name"
@@ -241,6 +243,7 @@ export default function BookingForm() {
                 type="number"
                 min={0}
                 max={50}
+                step={0.01}
                 required
                 className="peer rounded-r-none"
               >
@@ -261,7 +264,8 @@ export default function BookingForm() {
                 name="weight"
                 type="number"
                 min={0}
-                max={40}
+                max={100}
+                step={0.01}
                 required
               />
             </div>
