@@ -1,0 +1,144 @@
+# Setup `NextJS 15 Canary` with `TailwindCSS`, `Typescript` and `React 19`
+
+## TailwindCSS Setup
+
+1. Install the clsx package:
+
+```bash
+bun i clsx
+```
+
+2. Add autoprefixer to the project and postcss config:
+
+```bash
+bun i -D autoprefixer postcss
+```
+
+3. Add the postcss config to the project:
+
+```ts
+/** @type {import('postcss-load-config').Config} */
+const config = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+};
+
+export default config;
+```
+
+## Adding the `React 19 Compiler`
+
+1. Install the babel plugin:
+
+```bash
+bun i babel-plugin-react-compiler
+```
+
+2. Enable the compiler in the `next.config.ts` file:
+
+```ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  experimental: {
+    reactCompiler: true,
+  },
+};
+
+export default nextConfig;
+```
+
+3. Add the eslint rules to eslint.config.js using the following plugin:
+
+```bash
+bun i eslint-plugin-react-compiler
+```
+
+4. Add the plugin to the eslint config:
+
+```ts
+plugins: ["react-compiler"],
+```
+
+5. Add the rules to the eslint config:
+
+```ts
+rules: {
+  "react-compiler/react-compiler": "error",
+},
+```
+
+## Prettier
+
+1. Install the prettier plugin:
+
+```bash
+bun i -D prettier
+```
+
+2. Install the tailwindcss class sorting plugin for prettier:
+
+```bash
+bun i -D prettier-plugin-tailwindcss
+```
+
+3. Reference the stylesheet for the project in the `prettier.config.js` (the .css file may be named differently) file:
+
+```ts
+{
+  "tailwindStylesheet": "./app/globals.css"
+}
+```
+
+4. Add the clsx rule to the prettier config:
+
+```ts
+{
+  "tailwindFunctions": ["clsx"]
+}
+```
+
+## Components
+
+1. Initialize shadcn/ui, let me pick the options:
+
+```bash
+bunx --bun shadcn@latest init
+```
+
+2. Add next-themes to the project:
+
+```bash
+bun i next-themes
+```
+
+3. Create the `ThemeProvider` component in `app/providers/theme.tsx`:
+
+```tsx
+"use client";
+import {
+  ThemeProvider as NextThemesProvider,
+  ThemeProviderProps,
+} from "next-themes";
+
+export function ThemeProvider({
+  children,
+  ...props
+}: { children: React.ReactNode } & ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+}
+```
+
+4. Add the theme provider to the layout file:
+
+```tsx
+<ThemeProvider
+  attribute={"class"}
+  defaultTheme="system"
+  enableSystem
+  disableTransitionOnChange
+>
+  {children}
+</ThemeProvider>
+```
