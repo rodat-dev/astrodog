@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import "open-props/style";
-import { ThemeProvider } from "./providers/theme";
 import Main from "@/components/layout/page-transition";
-import { Navbar } from "@/components/layout/navbar";
 import { Gugi } from "next/font/google";
-import ChatButton from "@/components/ui/chat-button";
 import { Suspense } from "react";
-import AstrodogScene from "@/components/3d/astrodog-scene";
 import { AstrodogToaster } from "@/components/ui/astrodog-toaster";
 import BackgroundGradient from "@/components/layout/background-gradient";
+import dynamic from "next/dynamic";
+import { Navbar } from "@/components/layout/navbar";
+import ChatButton from "@/components/ui/chat-button";
 
 const gugi = Gugi({
   subsets: ["latin"],
@@ -21,6 +20,10 @@ export const metadata: Metadata = {
   description: "Your dogsitting AI assistant",
 };
 
+const AstrodogScene = dynamic(() => import("@/components/3d/astrodog-scene"));
+
+export const experimental_ppr = true;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,17 +32,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`antialiased ${gugi.className}`}>
-        <section className="absolute left-0 top-0 flex h-full w-full overflow-hidden">
+        <div className="pointer-events-none z-10 grid h-full w-full grid-rows-[auto_1fr_auto] flex-col items-center">
+          <Navbar />
+          <Main>{children}</Main>
+          <ChatButton />
+        </div>
+        <section className="pointer-events-none absolute left-0 top-0 z-0 flex h-dvh w-dvw overflow-hidden">
           <Suspense fallback={null}>
             <AstrodogScene />
           </Suspense>
-          <BackgroundGradient />
         </section>
-        <div className="pointer-events-none z-10 grid h-full w-full grid-rows-[80px_1fr]">
-          <Navbar />
-          <Main>{children}</Main>
-        </div>
-        <ChatButton />
+        <BackgroundGradient />
         <AstrodogToaster />
       </body>
     </html>

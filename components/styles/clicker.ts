@@ -4,9 +4,9 @@ import { animations } from "@/components/styles/animations";
 export const clicker = {
   entry: animations.entry,
   pointer: "pointer-events-auto z-10 cursor-pointer",
-  style: "bg-black/40 p-4 text-foreground backdrop-blur-xl",
+  style: "bg-black/40 p-3 text-foreground backdrop-blur-xl",
   hover:
-    "transition-all [box-shadow:inset_0_0_8px_var(--violet-8),0_0_8px_2px_var(--violet-8)] hover:[box-shadow:inset_0_0_7px_var(--violet-8),0_0_10px_4px_var(--violet-8)]",
+    "transition-all [box-shadow:inset_0_0_6px_var(--violet-8),0_0_6px_1px_var(--violet-8)] hover:[box-shadow:inset_0_0_7px_var(--violet-8),0_0_8px_2px_var(--violet-8)]",
   active:
     "active:[box-shadow:inset_0_1px_10px_var(--violet-8),0_0_4px_1px_var(--violet-8)] active:scale-95",
 };

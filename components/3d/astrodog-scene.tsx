@@ -7,7 +7,7 @@ import {
   Lightformer,
   Stars,
 } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useFrame, Canvas } from "@react-three/fiber";
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -58,7 +58,7 @@ const ASTRODOG_POSITIONS = (isHome: boolean) => (isHome ? -10 : -30);
 export default function AstrodogScene() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  useEffect(() => setMounted(true));
+  useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   const isHome = pathname === "/";
@@ -75,7 +75,7 @@ export default function AstrodogScene() {
         "h-full w-full bg-transparent",
         isHome
           ? "z-1 pointer-events-auto cursor-pointer touch-none"
-          : "pointer-events-none",
+          : "pointer-events-none z-0 cursor-default",
       )}
     >
       <Suspense fallback={null}>

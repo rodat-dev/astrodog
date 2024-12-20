@@ -7,11 +7,11 @@ export default function ChatButton() {
     <Link
       href="/chat"
       className={clickerClass({
-        className: "fixed bottom-4 right-4 h-fit w-fit",
+        className: "fixed bottom-4 right-4 h-fit w-fit md:p-4",
       })}
       aria-label="Chat with AI"
     >
-      <MessageCircle size={24} />
+      <MessageCircle className="size-6 md:size-7" />
     </Link>
   );
 }

@@ -37,7 +37,7 @@ type GLTFResult = GLTF & {
 export default function AstrodogModel({
   positionY,
   ...props
-}: //@ts-ignore
+}: //@ts-expect-error group is not a valid HTML element
 JSX.IntrinsicElements["group"] & {
   positionY: number;
 }) {
@@ -49,7 +49,7 @@ JSX.IntrinsicElements["group"] & {
 
   useFrame(() => {
     group.current?.position.setY(
-      lerp(group.current?.position.y, positionY, 0.04),
+      lerp(group.current?.position.y, positionY, 0.02),
     );
     actions?.floating?.play();
   });

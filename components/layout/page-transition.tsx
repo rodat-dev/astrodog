@@ -3,18 +3,14 @@
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 function FrozenRouter(props: { children: React.ReactNode }) {
   const context = useContext(LayoutRouterContext ?? {});
-  const frozen = useRef(context).current;
-
-  if (!frozen) {
-    return <>{props.children}</>;
-  }
+  const [ctx] = useState(context);
 
   return (
-    <LayoutRouterContext.Provider value={frozen}>
+    <LayoutRouterContext.Provider value={ctx}>
       {props.children}
     </LayoutRouterContext.Provider>
   );
@@ -60,6 +56,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
           staggerChildren: 0.15,
           duration: 0.4,
         }}
+        className="h-full w-full overflow-y-auto"
       >
         <FrozenRouter>{children}</FrozenRouter>
       </motion.div>

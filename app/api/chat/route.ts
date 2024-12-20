@@ -7,7 +7,6 @@ const systemPrompt =
 
 export async function POST(req: NextRequest) {
   const { messages: chat } = await req.json();
-  console.log(chat);
 
   const result = streamText({
     model: google("gemini-1.5-flash"),

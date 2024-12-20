@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <main
       role="main"
-      className="z-1 pointer-events-auto h-full w-full overflow-y-auto px-1 pb-4 pt-2"
+      className="pointer-events-auto h-full w-full overflow-y-auto p-2 md:py-4"
     >
       <BookingForm />
     </main>

@@ -40,6 +40,7 @@ export default function BackgroundGradient({
       style={{
         backgroundImage,
       }}
+      inert
       className={cn(
         "pointer-events-none fixed inset-0 z-[-1] m-0 flex h-full w-full touch-none overflow-hidden bg-fixed bg-no-repeat",
         className,

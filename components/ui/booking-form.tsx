@@ -21,7 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { Button } from "./button";
 import { clickerClass } from "../styles/clicker";
-import { CheckIcon, Cross, CrossIcon, XIcon } from "lucide-react";
+import { CheckIcon, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { cardStyles } from "../styles/cards";
 import { createPortal } from "react-dom";
@@ -118,7 +118,7 @@ export default function BookingForm() {
         confettiRef.current?.remove();
       }, 10000);
     }
-  }, [state.message, state.success, toast]);
+  }, [state.message, state.success, state.variant, toast]);
 
   return (
     <>
@@ -135,11 +135,11 @@ export default function BookingForm() {
 
       <Card
         ref={cardRef}
-        className={`mx-auto flex h-fit w-full flex-col border-none md:w-[60%] ${cardStyles.glassy}`}
+        className={`mx-auto flex h-fit w-full flex-col border-none [box-shadow:inset_0_0_6px_var(--violet-8)] md:w-[60%] ${cardStyles.glassy}`}
       >
         <form
           action={action}
-          className="pointer-events-auto flex flex-1 flex-col gap-8 p-8"
+          className="pointer-events-auto flex flex-1 flex-col gap-8 p-4"
         >
           <TitleWithGradient>Booking Form</TitleWithGradient>
           <div className="space-y-4">
@@ -300,7 +300,7 @@ export default function BookingForm() {
             type="submit"
             className={clickerClass({
               borderRadius: "rounded-lg",
-              className: "mx-auto w-fit min-w-[20ch] p-6",
+              className: "mx-auto w-fit min-w-[20ch] px-2 py-4",
             })}
           >
             {isPending ? "Submitting..." : "Submit"}

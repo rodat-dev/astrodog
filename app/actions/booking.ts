@@ -6,7 +6,7 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabase = createClient(supabaseUrl!, supabaseKey!);
 
-export async function createBooking(_prevState: any, formData: FormData) {
+export async function createBooking(_prevState: object, formData: FormData) {
   const validatedFields = BookingFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),

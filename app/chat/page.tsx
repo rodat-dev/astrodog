@@ -4,7 +4,7 @@ export default function ChatPage() {
   return (
     <main
       role="main"
-      className="pointer-events-auto flex h-full w-full flex-col items-center justify-center px-1 pb-4 pt-2"
+      className="pointer-events-auto flex h-full w-full items-center justify-center overflow-y-auto p-2 md:py-4"
     >
       <AstrodogChat />
     </main>

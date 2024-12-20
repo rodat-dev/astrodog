@@ -24,6 +24,7 @@
     "@radix-ui/react-toast": "^1.2.3",
     "@react-three/drei": "^9.120.4",
     "@react-three/fiber": "^9.0.0-rc.1",
+    "@react-three/offscreen": "^0.0.8",
     "@react-three/postprocessing": "^2.16.3",
     "@supabase/supabase-js": "^2.47.7",
     "ai": "^4.0.0-canary.13",
@@ -57,7 +58,6 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.1-canary.5",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.11",
     "postcss": "^8",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
@@ -65,5 +65,6 @@
     "tailwindcss-motion": "^1.0.0",
     "tailwindcss-preset-open-props": "^0.7.0",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
