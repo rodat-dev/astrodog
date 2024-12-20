@@ -57,7 +57,7 @@ export function Navbar(props: NavigationMenuProps) {
           >
             <Link
               className="text-foreground/70"
-              href={"https://www.instagram.com/dogsittingmanchester"}
+              href={"https://www.instagram.com/dog_sitting_manchester"}
               target="_blank"
               rel="noopener noreferrer"
               passHref
