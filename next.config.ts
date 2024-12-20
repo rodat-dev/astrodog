@@ -2,13 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
-    ppr: "incremental",
+    ppr: true,
     reactCompiler: true,
     inlineCss: true,
-    workerThreads: true,
-    webpackBuildWorker: true,
   },
-  output: "standalone",
   reactStrictMode: true,
 };
 
